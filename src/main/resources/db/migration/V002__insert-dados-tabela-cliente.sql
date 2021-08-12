@@ -1,0 +1,2 @@
+INSERT INTO `algalog`.`cliente` (`nome`,`email`,`telefone`) VALUES ('Stark','stark@marvel.com','123-8888-0000');
+INSERT INTO `algalog`.`cliente` (`nome`,`email`,`telefone`) VALUES ('Thor','thor@marvel.com','999-1234-0000');
