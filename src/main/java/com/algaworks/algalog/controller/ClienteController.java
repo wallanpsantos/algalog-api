@@ -1,30 +1,66 @@
 package com.algaworks.algalog.controller;
 
 import com.algaworks.algalog.domain.model.ClienteModel;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.algaworks.algalog.domain.repository.ClienteRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Objects;
 
+@AllArgsConstructor
 @RestController
+@RequestMapping("/clientes")
 public class ClienteController {
 
-    @PersistenceContext //injeta um EntityManager na var de instancia
-    private EntityManager entitymanager;
+    //    @Autowired
+    private ClienteRepository clienteRepository;
 
-    @GetMapping("/clientes")
+    @GetMapping
     public List<ClienteModel> getClientes() {
-        // Primeiro param "from ClienteModel" tem que se o nome da Classe
-        return entitymanager.createQuery("from ClienteModel", ClienteModel.class).getResultList();
+        return clienteRepository.findAll();
     }
 
-//    @GetMapping("/clientes")
-//    public ResponseEntity<List<ClienteModel>> getClientes() {
-//
-//        return new ResponseEntity<>(entitymanager.createQuery("from ClienteModel", ClienteModel.class)
-//                .getResultList(), HttpStatus.OK);
-//    }
+    @GetMapping("/nome/{nomeCliente}")
+    public List<ClienteModel> getNomeCliente(@PathVariable String nomeCliente) {
+        return clienteRepository.findByNomeContaining(nomeCliente);
+    }
 
+    @GetMapping("/{idCliente}")
+    public ResponseEntity<ClienteModel> getIdCliente(@PathVariable Long idCliente) {
+        return clienteRepository.findById(idCliente)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/adicionar")
+    public ResponseEntity<ClienteModel> adicionarCliente(@RequestBody ClienteModel cliente) {
+        if (Objects.nonNull(cliente)) {
+            return new ResponseEntity<>(clienteRepository.save(cliente), HttpStatus.CREATED);
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    @PutMapping("/atualizar/{idCliente}")
+    public ResponseEntity<ClienteModel> atualizarCliente(
+            @PathVariable Long idCliente, @RequestBody ClienteModel cliente) {
+
+        if (clienteRepository.existsById(idCliente)) {
+            cliente.setId(idCliente);
+            cliente = clienteRepository.save(cliente);
+            return new ResponseEntity<>(cliente, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(clienteRepository.save(cliente), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/deletar/{idCliente}")
+    public ResponseEntity<String> removeCliente(@PathVariable Long idCliente) {
+        if (clienteRepository.existsById(idCliente)) {
+            clienteRepository.deleteById(idCliente);
+            return ResponseEntity.ok().body("Cliente removido com sucesso");
+        }
+        return ResponseEntity.badRequest().build();
+    }
 }
