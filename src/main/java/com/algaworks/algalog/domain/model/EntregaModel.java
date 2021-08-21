@@ -45,6 +45,8 @@ public class EntregaModel {
     @ConvertGroup(to = GrupoValidation.idCliente.class)
     private ClienteModel cliente;
 
+    @Valid
+    @NotNull
     @Embedded // Separa os valores do destinario numa classe a parte
     private DestinatarioModel destinatario;
 

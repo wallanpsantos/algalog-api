@@ -31,7 +31,8 @@ public class DestinatarioModel {
     @NotBlank
     @Column(name = "destinatario_complemento")
     private String complemento;
-    
+
+    @NotBlank
     @Column(name = "destinatario_bairro")
     private String bairro;
 }
