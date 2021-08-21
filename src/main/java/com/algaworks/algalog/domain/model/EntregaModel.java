@@ -21,7 +21,6 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.ConvertGroup;
-import javax.validation.groups.Default;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -43,7 +42,7 @@ public class EntregaModel {
     @ManyToOne
     @NotNull
     @Valid
-    @ConvertGroup(from = Default.class, to = GrupoValidation.idCliente.class)
+    @ConvertGroup(to = GrupoValidation.idCliente.class)
     private ClienteModel cliente;
 
     @Embedded // Separa os valores do destinario numa classe a parte
