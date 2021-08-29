@@ -1,5 +1,6 @@
 package com.algaworks.algalog.exceptionshandler;
 
+import com.algaworks.algalog.domain.exceptions.EntidadeNaoEncontradaException;
 import com.algaworks.algalog.domain.exceptions.NegocioException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -93,5 +94,28 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         return handleExceptionInternal(negocioException, problemaMensagemException,
                 new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    /**
+     * Metodo responsavel pelo Exception atrelado globalmente ao EntidadeNaoEncontradaException
+     *
+     * @param entidadeNaoEncontradaException
+     * @param request
+     * @return handleExceptionInternal(entidadeNaoEncontradaException, problemaMensagemException,
+     *new HttpHeaders (), HttpStatus.BAD_REQUEST, request);
+     */
+    @ExceptionHandler(EntidadeNaoEncontradaException.class)
+    public ResponseEntity<Object> handleEntidadeNaoEncontradaException(EntidadeNaoEncontradaException entidadeNaoEncontradaException,
+                                                         WebRequest request) {
+
+        ProblemaMensagemException problemaMensagemException = ProblemaMensagemException.builder()
+                .status(HttpStatus.NOT_FOUND.value())
+                .dataHora(LocalDateTime.now())
+                .mensagem(entidadeNaoEncontradaException.getMessage())
+                .campos(null)
+                .build();
+
+        return handleExceptionInternal(entidadeNaoEncontradaException, problemaMensagemException,
+                new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 }

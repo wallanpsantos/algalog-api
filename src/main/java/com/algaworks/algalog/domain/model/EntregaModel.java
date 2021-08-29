@@ -64,4 +64,16 @@ public class EntregaModel {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dataFinalizacao;
+
+    public OcorrenciaModel adicionarOcorrencia(String descricao) {
+        OcorrenciaModel ocorrenciaModel = OcorrenciaModel.builder()
+                .descricao(descricao)
+                .dataRegistro(LocalDateTime.now())
+                .entrega(this)
+                .build();
+
+        this.getOcorrencias().add(ocorrenciaModel);
+
+        return ocorrenciaModel;
+    }
 }

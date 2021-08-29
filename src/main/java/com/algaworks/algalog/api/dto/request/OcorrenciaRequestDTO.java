@@ -1,6 +1,5 @@
 package com.algaworks.algalog.api.dto.request;
 
-import com.algaworks.algalog.api.domain.request.ClienteModelRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,9 +12,9 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EntregaRequestDTO {
+public class OcorrenciaRequestDTO {
 
     @NotNull
     @Valid
-    private ClienteModelRequest cliente;
+    private String descricao;
 }
