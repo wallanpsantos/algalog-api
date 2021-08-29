@@ -3,12 +3,11 @@ package com.algaworks.algalog.domain.model;
 import com.algaworks.algalog.domain.model.enums.StatusEntregaEnum;
 import com.algaworks.algalog.domain.validations.GrupoValidation;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,17 +16,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.ConvertGroup;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "entrega")
@@ -38,12 +38,14 @@ public class EntregaModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @ManyToOne
     @NotNull
     @Valid
     @ConvertGroup(to = GrupoValidation.idCliente.class)
     private ClienteModel cliente;
+
+    @OneToMany(mappedBy = "entrega", cascade = CascadeType.ALL)
+    private List<OcorrenciaModel> ocorrencias = new ArrayList<>();
 
     @Valid
     @NotNull

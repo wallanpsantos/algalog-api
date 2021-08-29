@@ -32,10 +32,10 @@ public class EntregaMapper {
     /**
      * Metodo responsavel por converter modelo de entrega em lista de entregas
      *
-     * @param entregas
+     * @param entregases
      * @return List<EntregaResponseDTO>
      */
-    public List<EntregaResponseDTO> toCollectionModel(List<EntregaModel> entregas) {
-        return entregas.stream().map(this::toModel).collect(Collectors.toList());
+    public List<EntregaResponseDTO> toCollectionModel(List<EntregaModel> entregases) {
+        return entregases.stream().map(this::toModel).collect(Collectors.toList());
     }
 }

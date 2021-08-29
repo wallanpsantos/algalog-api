@@ -6,11 +6,16 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 @Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class EntregaRequestDTO {
 
+    @NotNull
+    @Valid
     private ClienteModelRequest cliente;
 }

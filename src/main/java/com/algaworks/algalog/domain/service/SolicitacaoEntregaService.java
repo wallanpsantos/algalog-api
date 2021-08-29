@@ -19,19 +19,19 @@ public class SolicitacaoEntregaService {
     private CadastroClienteService cadastroClienteService;
 
     @Transactional
-    public EntregaModel solicitarEntrega(EntregaModel entrega) {
+    public EntregaModel solicitarEntrega(EntregaModel entregaModel) {
 
-        ClienteModel cliente = cadastroClienteService.buscarCliente(entrega.getCliente().getId());
+        ClienteModel cliente = cadastroClienteService.buscarCliente(entregaModel.getCliente().getId());
 
         /**
          * Podemos criar aqui as regras de negocios
          * Como de tal hora a tal hora para entregar
          * Verificar se existe entregador disponivel
          */
-        entrega.setCliente(cliente);
-        entrega.setStatus(StatusEntregaEnum.PENDENTE);
-        entrega.setDataPedido(LocalDateTime.now());
+        entregaModel.setCliente(cliente);
+        entregaModel.setStatus(StatusEntregaEnum.PENDENTE);
+        entregaModel.setDataPedido(LocalDateTime.now());
 
-        return entregaRepository.save(entrega);
+        return entregaRepository.save(entregaModel);
     }
 }
