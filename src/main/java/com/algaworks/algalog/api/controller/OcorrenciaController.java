@@ -2,6 +2,7 @@ package com.algaworks.algalog.api.controller;
 
 import com.algaworks.algalog.api.dto.request.OcorrenciaRequestDTO;
 import com.algaworks.algalog.api.dto.response.OcorrenciaResponseDTO;
+import com.algaworks.algalog.api.mapper.OcorrenciaMapper;
 import com.algaworks.algalog.domain.model.EntregaModel;
 import com.algaworks.algalog.domain.model.OcorrenciaModel;
 import com.algaworks.algalog.domain.service.BuscaEntregaService;
@@ -28,6 +29,7 @@ public class OcorrenciaController {
 
     private RegistroOcorrenciaService registroOcorrenciaService;
     private BuscaEntregaService buscaEntregaService;
+    private OcorrenciaMapper ocorrenciaMapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

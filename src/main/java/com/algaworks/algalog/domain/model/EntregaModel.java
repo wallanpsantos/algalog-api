@@ -3,8 +3,10 @@ package com.algaworks.algalog.domain.model;
 import com.algaworks.algalog.domain.model.enums.StatusEntregaEnum;
 import com.algaworks.algalog.domain.validations.GrupoValidation;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.CascadeType;
@@ -31,6 +33,8 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "entrega")
+@NoArgsConstructor
+@AllArgsConstructor
 public class EntregaModel {
 
     @EqualsAndHashCode.Include

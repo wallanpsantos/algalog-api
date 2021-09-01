@@ -1,8 +1,10 @@
 package com.algaworks.algalog.domain.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +20,8 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "ocorrencia")
+@NoArgsConstructor
+@AllArgsConstructor
 public class OcorrenciaModel {
 
     @EqualsAndHashCode.Include
